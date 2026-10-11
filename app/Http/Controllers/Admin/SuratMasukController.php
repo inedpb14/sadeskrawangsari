@@ -111,10 +111,16 @@ class SuratMasukController extends Controller
             'sktmDetail',
             'beasiswaDetail',
             'iumkDetail',
+            'domisiliDetail',
             'belumMenikahDetail',
             'izinKeramaianDetail',
             'kehilanganDokDetail',
             'pengantarDetail',
+            'pengantarKtpDetail',
+            'jaminanKesehatanDetail',
+            'kematianDetail',
+            'pindahDetail',
+            'perubahanDataDetail',
         ])->findOrFail($id);
 
         if ($surat->status !== 'Disetujui') {

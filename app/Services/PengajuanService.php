@@ -12,15 +12,20 @@ class PengajuanService
         'surat-beasiswa' => ['nama_institusi', 'tingkat_pendidikan', 'nama_penerima_beasiswa'],
         'surat-iumk' => ['nama_usaha', 'jenis_usaha', 'lokasi_usaha', 'modal_usaha'],
         'surat-domisili' => ['tujuan_pembuatan'],
-        'surat-penghasilan' => ['penghasilan_per_bulan', 'pekerjaan_sebenarnya', 'tujuan_surat'],
+        'surat-penghasilan' => ['penghasilan_per_bulan', 'pekerjaan_sebenarnya', 'tempat_kerja', 'tujuan_surat'],
         'surat-kehilangan' => ['jenis_dokumen_hilang', 'keterangan_hilang', 'lokasi_hilang'],
         'surat-kematian' => ['nik_yang_meninggal', 'nama_yang_meninggal', 'tanggal_kematian', 'tempat_kematian', 'penyebab_kematian', 'nik_pelapor'],
         'surat-pindah' => ['alamat_tujuan_lengkap', 'alasan_pindah', 'tgl_rencana_pindah', 'jumlah_ikut_pindah'],
         'surat-belummenikah' => ['tujuan_permohonan'],
         'surat-keramaian' => ['nama_kegiatan', 'lokasi_kegiatan', 'tgl_mulai', 'tgl_selesai', 'penanggung_jawab'],
         'surat-pengantar' => ['jenis_pengantar', 'keterangan'],
-        'surat-jamkes' => [], // jika ada field khusus
-        'surat-perubahandata' => [], // jika ada field khusus
+        'surat-jamkes' => ['status_peserta', 'program_bantuan', 'nik_tertanggung'],
+        'surat-perubahandata' => ['data_lama', 'data_baru', 'alasan_perubahan'],
+    ];
+
+    protected $detailTables = [
+        'surat-pindah' => 'surat_pindah_domisili_detail',
+        'surat-perubahandata' => 'surat_perubahan_data_detail',
     ];
 
     public function createPengajuan(array $validated): PengajuanSurat
@@ -43,7 +48,7 @@ class PengajuanService
             $detailData['created_at'] = now();
             $detailData['updated_at'] = now();
 
-            $tableName = str_replace('-', '_', $slug).'_detail';
+            $tableName = $this->detailTables[$slug] ?? str_replace('-', '_', $slug).'_detail';
             DB::table($tableName)->insert($detailData);
 
             DB::commit();

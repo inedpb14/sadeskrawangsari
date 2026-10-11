@@ -289,7 +289,7 @@
         </div>
 
         <div class="mt-4 d-flex justify-content-center">
-            {{ $surat->links() }}
+            {{ $surat->appends(request()->query())->links('pagination::bootstrap-5') }}
         </div>
     </div>
 

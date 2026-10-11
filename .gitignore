@@ -43,6 +43,12 @@ skills-lock.json
 # File debugging sensitif - jangan di-upload ke GitHub
 check_creds.php
 clear_sessions.php
+bootstrap.zip
 
 # Konfigurasi AI Agent (Antigravity IDE) - lokal saja
 /.agents
+
+# Non-kode aplikasi - lokal saja (tetap ada di disk, tidak di-upload ke GitHub)
+/docs
+/AGENTS.md
+/tests

@@ -84,7 +84,7 @@ class PengajuanSuratController extends Controller
         } elseif ($request->slug == 'surat-domisili') {
             $rules += ['tujuan_pembuatan' => 'required'];
         } elseif ($request->slug == 'surat-penghasilan') {
-            $rules += ['penghasilan_per_bulan' => 'required|numeric', 'pekerjaan_sebenarnya' => 'required', 'tujuan_surat' => 'required'];
+            $rules += ['penghasilan_per_bulan' => 'required|numeric', 'pekerjaan_sebenarnya' => 'required|string|max:150', 'tempat_kerja' => 'required|string|max:255', 'tujuan_surat' => 'required'];
         } elseif ($request->slug == 'surat-kehilangan') {
             $rules += ['jenis_dokumen_hilang' => 'required', 'keterangan_hilang' => 'required', 'lokasi_hilang' => 'required'];
         } elseif ($request->slug == 'surat-kematian') {
@@ -97,6 +97,10 @@ class PengajuanSuratController extends Controller
             $rules += ['nama_kegiatan' => 'required', 'lokasi_kegiatan' => 'required', 'tgl_mulai' => 'required|date', 'tgl_selesai' => 'required|date|after_or_equal:tgl_mulai', 'penanggung_jawab' => 'required'];
         } elseif ($request->slug == 'surat-pengantar') {
             $rules += ['jenis_pengantar' => 'required', 'keterangan' => 'required'];
+        } elseif ($request->slug == 'surat-jamkes') {
+            $rules += ['status_peserta' => 'required|in:Baru,Perpanjangan,Perubahan Data', 'program_bantuan' => 'required', 'nik_tertanggung' => 'required|size:16'];
+        } elseif ($request->slug == 'surat-perubahandata') {
+            $rules += ['data_lama' => 'required', 'data_baru' => 'required', 'alasan_perubahan' => 'required'];
         }
 
         $validated = $request->validate($rules);
@@ -131,10 +135,16 @@ class PengajuanSuratController extends Controller
             'sktmDetail',
             'beasiswaDetail',
             'iumkDetail',
+            'domisiliDetail',
             'belumMenikahDetail',
             'izinKeramaianDetail',
             'kehilanganDokDetail',
             'pengantarDetail',
+            'pengantarKtpDetail',
+            'jaminanKesehatanDetail',
+            'kematianDetail',
+            'pindahDetail',
+            'perubahanDataDetail',
         ])->findOrFail($id);
 
         if (! app(PdfSuratService::class)->canPrint(Auth::guard('warga')->user(), $surat)) {

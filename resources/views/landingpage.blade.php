@@ -35,7 +35,7 @@
             position: relative;
             /* Menggunakan gradasi agar teks putih tetap mudah dibaca di atas gambar terang */
             background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.6)),
-                url('{{ isset($pengaturan->hero_image) ? asset('storage/' . $pengaturan->hero_image) : 'https://images.unsplash.com/photo-1559415718-d82869275533?q=80&w=2070&auto=format&fit=crop' }}');
+                url('{{ !empty($pengaturan->hero_image) ? asset('storage/' . $pengaturan->hero_image) : 'https://images.unsplash.com/photo-1559415718-d82869275533?q=80&w=2070&auto=format&fit=crop' }}');
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
@@ -477,7 +477,7 @@
     <section class="section-container">
         <div class="sambutan-wrapper">
             <div class="foto-kades">
-                @if (isset($pengaturan->foto_kades))
+                @if (!empty($pengaturan->foto_kades))
                     <img src="{{ asset('storage/' . $pengaturan->foto_kades) }}" alt="Foto Kepala Desa">
                 @else
                     <img src="https://ui-avatars.com/api/?name={{ urlencode($pengaturan->nama_kades ?? 'Kepala Desa') }}&size=300&background=eef2f7&color=2c3e50"

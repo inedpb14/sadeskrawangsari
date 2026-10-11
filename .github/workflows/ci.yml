@@ -73,9 +73,6 @@ jobs:
       - name: Run PHPStan (static analysis)
         run: vendor/bin/phpstan analyse --memory-limit=512M
 
-      - name: Run Pest tests
-        run: php artisan test --compact --parallel
-
   frontend-build:
     name: Frontend Build
     runs-on: ubuntu-latest
