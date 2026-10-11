@@ -23,8 +23,23 @@
 Homestead.json
 Homestead.yaml
 Thumbs.db
-/storage
-/bootstrap/cache
+
+# Laravel generated dirs: keep folder placeholders so fresh clones work,
+# ignore everything else inside them
+/bootstrap/cache/*
+!/bootstrap/cache/.gitignore
+/storage/framework/cache/data/*
+!/storage/framework/cache/data/.gitignore
+/storage/framework/sessions/*
+!/storage/framework/sessions/.gitignore
+/storage/framework/testing/*
+!/storage/framework/testing/.gitignore
+/storage/framework/views/*
+!/storage/framework/views/.gitignore
+/storage/logs/*
+!/storage/logs/.gitignore
+/storage/app/public/*
+!/storage/app/public/.gitignore
 
 # Database dumps
 db_desa.sql
